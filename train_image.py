@@ -96,15 +96,16 @@ def trainImage(
 
 if __name__ == '__main__':
     # model = models.Simple(hidden_size=200, num_hidden_layers=10, activation=nn.LeakyReLU).cuda()
-    model = models.SkipConn(hidden_size=300, num_hidden_layers=15, activation=nn.GELU).cuda()
+    #model = models.SkipConn(hidden_size=300, num_hidden_layers=15, activation=nn.GELU).cuda()
+    model = models.Fourier(fourier_order=4, hidden_size=100, num_hidden_layers=7, linmap=None, activation=nn.GELU).cuda()
     # model = models.Fourier(16, hidden_size=200, num_hidden_layers=10, linmap=models.CenteredLinearMap(-1, 1, -1, 1, 2*torch.pi, 2*torch.pi)).cuda()
     trainImage(
-        image_path='DatasetImages/biodiversity.png',
-        proj_name='biodiversity_adam',
+        image_path='DatasetImages/darwin_grey.jpg',
+        proj_name='darwin_fourier',
         model=model,
         lr=0.002,
         batch_size=8000,
-        num_epochs=100,
+        num_epochs=50,
         optimizer='adam',
         scheduler_step=10,
         scheduler_gamma=0.5,
